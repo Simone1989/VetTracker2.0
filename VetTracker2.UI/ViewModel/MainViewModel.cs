@@ -7,36 +7,18 @@ namespace VetTracker2.UI.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        private IPetDataService _petDataService;
-        private Pet _selectedPet;
-
-        public MainViewModel(IPetDataService petDataService)
+        public MainViewModel(INavigationViewModel navigationViewModel, IPetDetailViewModel petDetailViewModel)
         {
-            Pets = new ObservableCollection<Pet>();
-            _petDataService = petDataService;
+            NavigationViewModel = navigationViewModel;
+            PetDetailViewModel = petDetailViewModel;
         }
 
         public async Task LoadAsync()
         {
-            var pets = await _petDataService.GetAllAsync();
-
-            Pets.Clear();
-            foreach (var pet in pets)
-            {
-                Pets.Add(pet);
-            }
+            await NavigationViewModel.LoadAsync();
         }
 
-        public ObservableCollection<Pet> Pets { get; set; }
-
-        public Pet SelectedPet
-        {
-            get { return _selectedPet; }
-            set
-            {
-                _selectedPet = value;
-                OnPropertyChanged();
-            }
-        }
+        public INavigationViewModel NavigationViewModel { get; }
+        public IPetDetailViewModel PetDetailViewModel { get; }
     }
 }

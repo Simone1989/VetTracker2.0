@@ -16,11 +16,11 @@ namespace VetTracker2.UI.Data
         {
             _contextCreator = contextCreator;
         }
-        public async Task<List<Pet>> GetAllAsync()
+        public async Task<Pet> GetByIdAsync(int petId)
         {
             using(var context = _contextCreator())
             {
-                return await context.Pets.AsNoTracking().ToListAsync();
+                return await context.Pets.AsNoTracking().SingleAsync(p => p.Id == petId);
             }
         }
 

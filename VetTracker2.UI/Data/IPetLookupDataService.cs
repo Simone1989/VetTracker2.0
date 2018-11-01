@@ -4,8 +4,8 @@ using VetTracker2.Model;
 
 namespace VetTracker2.UI.Data
 {
-    public interface IPetDataService
+    public interface IPetLookupDataService
     {
-        Task<Pet> GetByIdAsync(int petId);
+        Task<IEnumerable<LookupItem>> GetPetLookupAsync();
     }
 }

@@ -1,5 +1,6 @@
 ﻿
 using Autofac;
+using Prism.Events;
 using VetTracker2.DataAccess;
 using VetTracker2.UI.Data;
 using VetTracker2.UI.ViewModel;
@@ -13,6 +14,8 @@ namespace VetTracker2.UI.Startup
         public IContainer Bootstrap()
         {
             var builder = new ContainerBuilder();
+
+            builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
 
             builder.RegisterType<VetTrackerContext>().AsSelf();
 

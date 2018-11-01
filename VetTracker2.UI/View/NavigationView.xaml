@@ -9,6 +9,7 @@
     <Grid>
         <ListView Grid.Column="0"
                   ItemsSource="{Binding Pets}"
+                  SelectedItem="{Binding SelectedPet, Mode=TwoWay}"
                   DisplayMemberPath="DisplayMember"/>
     </Grid>
 </UserControl>

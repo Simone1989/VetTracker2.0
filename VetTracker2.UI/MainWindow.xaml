@@ -1,0 +1,55 @@
+﻿<Window x:Class="VetTracker2.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VetTracker2.UI"
+        mc:Ignorable="d"
+        Title="Vet Tracker 2.0"  Height="500" Width="1000" FontSize="24">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="333"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ListView Grid.Column="0"
+                  ItemsSource="{Binding Pets}"
+                  SelectedItem="{Binding SelectedPet, Mode=TwoWay}"
+                  DisplayMemberPath="Name"/>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0"
+                   Content="Name"/>
+            <TextBox Grid.Row="1"
+                     Text="{Binding SelectedPet.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <!--Ändra här till lose fokus-->
+
+            <Label Grid.Row="2"
+                   Content="Type"/>
+            <TextBox Grid.Row="3"
+                     Text="{Binding SelectedPet.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Grid.Row="4"
+                   Content="Illness"/>
+            <TextBox Grid.Row="5"
+                     Text="{Binding SelectedPet.Illness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            
+            <Label Grid.Row="6"
+                   Content="Owner"/>
+            <TextBox Grid.Row="7"
+                     Text="{Binding SelectedPet.Owner, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        </Grid>
+    </Grid>
+</Window>

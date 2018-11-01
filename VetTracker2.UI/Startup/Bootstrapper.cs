@@ -1,0 +1,27 @@
+﻿
+using Autofac;
+using VetTracker2.DataAccess;
+using VetTracker2.UI.Data;
+using VetTracker2.UI.ViewModel;
+
+namespace VetTracker2.UI.Startup
+{
+    public class Bootstrapper
+    {
+        // Bootstrapper class is responsible for creating the Autofac container
+
+        public IContainer Bootstrap()
+        {
+            var builder = new ContainerBuilder();
+
+            builder.RegisterType<VetTrackerContext>().AsSelf();
+
+            builder.RegisterType<MainWindow>().AsSelf();
+            builder.RegisterType<MainViewModel>().AsSelf();
+            // Whenever a IPetDataService is required somewhere, it will create an instance of the PetDataService class
+            builder.RegisterType<PetDataService>().As<IPetDataService>();
+
+            return builder.Build();
+        }
+    }
+}

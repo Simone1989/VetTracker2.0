@@ -88,6 +88,9 @@
     <Compile Include="View\PetDetailView.xaml.cs">
       <DependentUpon>PetDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wrapper\ModelWrapper.cs" />
+    <Compile Include="Wrapper\NotifyDataErrorInfoBase.cs" />
+    <Compile Include="Wrapper\PetWrapper.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

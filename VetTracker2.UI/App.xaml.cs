@@ -14,5 +14,12 @@ namespace VetTracker2.UI
             var mainWindow = container.Resolve<MainWindow>();
             mainWindow.Show();
         }
+
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show("Something went wrong, try again later." + e.Exception.Message);
+
+            e.Handled = true;
+        }
     }
 }

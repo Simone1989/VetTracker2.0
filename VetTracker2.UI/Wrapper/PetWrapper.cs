@@ -24,7 +24,7 @@ namespace VetTracker2.UI.Wrapper
             set { SetValue(value); }
         }
 
-        public string Ilness
+        public string Illness
         {
             get { return GetValue<string>(); }
             set { SetValue(value); }

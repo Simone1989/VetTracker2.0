@@ -10,7 +10,7 @@ namespace VetTracker2.UI.Data
 {
     public class PetDataService : IPetDataService
     {
-        private Func<VetTrackerContext> _contextCreator;
+        private readonly Func<VetTrackerContext> _contextCreator;
 
         public PetDataService(Func<VetTrackerContext> contextCreator)
         {
@@ -24,5 +24,14 @@ namespace VetTracker2.UI.Data
             }
         }
 
+        public async Task SaveAsync(Pet pet)
+        {
+            using (var context = _contextCreator())
+            {
+                context.Pets.Attach(pet);
+                context.Entry(pet).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }

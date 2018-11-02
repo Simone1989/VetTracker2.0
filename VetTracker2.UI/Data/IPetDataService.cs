@@ -7,5 +7,6 @@ namespace VetTracker2.UI.Data
     public interface IPetDataService
     {
         Task<Pet> GetByIdAsync(int petId);
+        Task SaveAsync(Pet pet);
     }
 }

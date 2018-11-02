@@ -16,32 +16,44 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <Rectangle Grid.RowSpan="8"  Fill="#FFF4F4F5" Stroke="#FFF4F4F5" />
+
         <Label Grid.Row="0"
-                   Content="Name"/>
+               Content="Name"
+               Margin="20,10,0,0"/>
         <TextBox Grid.Row="1"
                  Text="{Binding Pet.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Margin="0,0,40,0"/>
+                 Margin="20,0,20,0"/>
         <!--Ändra här till lose fokus-->
 
         <Label Grid.Row="2"
-                   Content="Type"/>
+               Content="Type"
+               Margin="20,10,0,0"/>
         <TextBox Grid.Row="3"
                  Text="{Binding Pet.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Margin="0,0,40,0"/>
+                 Margin="20,0,20,0"/>
 
         <Label Grid.Row="4"
-                   Content="Illness"/>
+               Content="Illness"
+               Margin="20,10,0,0"/>
         <TextBox Grid.Row="5"
                  Text="{Binding Pet.Illness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Margin="0,0,40,0"/>
+                 Margin="20,0,20,0"/>
 
         <Label Grid.Row="6"
-                   Content="Owner"/>
+                Content="Owner"
+                Margin="20,10,0,0"/>
         <TextBox Grid.Row="7"
                  Text="{Binding Pet.Owner, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Margin="0,0,40,0"/>
+                 Margin="20,0,20,20"/>
+
+        <StackPanel Grid.Row="8" Orientation="Horizontal">
+            <Button Content="Save" Width="100" Height="50" 
+                    Margin="0,20,20,0" Command="{Binding SaveCommand}"/>
+        </StackPanel>
 
     </Grid>
 </UserControl>

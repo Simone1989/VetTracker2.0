@@ -1,9 +1,11 @@
 ﻿using Prism.Events;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using VetTracker2.Model;
 using VetTracker2.UI.Data;
 using VetTracker2.UI.Event;
+using System.Linq;
 
 namespace VetTracker2.UI.ViewModel
 {
@@ -16,7 +18,14 @@ namespace VetTracker2.UI.ViewModel
         {
             _petLookupService = petLookupService;
             _eventAggregator = eventAggregator;
-            Pets = new ObservableCollection<LookupItem>();
+            Pets = new ObservableCollection<NavigationItemViewModel>();
+            _eventAggregator.GetEvent<AfterPetSavedEvent>().Subscribe(AfterPetSaved);
+        }
+
+        private void AfterPetSaved(AfterPetSavedEventArgs obj)
+        {
+            var lookupItem = Pets.Single(l => l.Id == obj.Id);
+            lookupItem.DisplayMember = obj.DisplayMember;
         }
 
         public async Task LoadAsync()
@@ -25,15 +34,15 @@ namespace VetTracker2.UI.ViewModel
             Pets.Clear();
             foreach (var item in lookup)
             {
-                Pets.Add(item);
+                Pets.Add(new NavigationItemViewModel(item.Id, item.DisplayMember));
             }
         }
 
-        public ObservableCollection<LookupItem> Pets { get; }
+        public ObservableCollection<NavigationItemViewModel> Pets { get; }
 
-        private LookupItem _selectedPet;
+        private NavigationItemViewModel _selectedPet;
 
-        public LookupItem SelectedPet
+        public NavigationItemViewModel SelectedPet
         {
             get { return _selectedPet; }
             set

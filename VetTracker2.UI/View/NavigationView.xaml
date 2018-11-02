@@ -7,9 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <ListView Grid.Column="0"
-                  ItemsSource="{Binding Pets}"
-                  SelectedItem="{Binding SelectedPet, Mode=TwoWay}"
-                  DisplayMemberPath="DisplayMember"/>
+        <ListView
+                ItemsSource="{Binding Pets}"
+                SelectedItem="{Binding SelectedPet, Mode=TwoWay}"
+                DisplayMemberPath="DisplayMember"
+                Background="#FFF4F4F5"/>
     </Grid>
 </UserControl>

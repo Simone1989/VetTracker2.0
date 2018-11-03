@@ -68,10 +68,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Data\IPetDataService.cs" />
-    <Compile Include="Data\IPetLookupDataService.cs" />
-    <Compile Include="Data\LookupDataService.cs" />
-    <Compile Include="Data\PetDataService.cs" />
+    <Compile Include="Data\Lookups\IPetLookupDataService.cs" />
+    <Compile Include="Data\Lookups\LookupDataService.cs" />
+    <Compile Include="Data\Repositories\IPetRepository.cs" />
+    <Compile Include="Data\Repositories\PetRepository.cs" />
     <Compile Include="Event\AfterPetSavedEvent.cs" />
     <Compile Include="Event\OpenPetDetailViewEvent.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />
@@ -88,6 +88,8 @@
     <Compile Include="View\PetDetailView.xaml.cs">
       <DependentUpon>PetDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Services\IMessageDialogService.cs" />
+    <Compile Include="View\Services\MessageDialogService.cs" />
     <Compile Include="Wrapper\ModelWrapper.cs" />
     <Compile Include="Wrapper\NotifyDataErrorInfoBase.cs" />
     <Compile Include="Wrapper\PetWrapper.cs" />

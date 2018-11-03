@@ -7,10 +7,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <ListView
-                ItemsSource="{Binding Pets}"
-                SelectedItem="{Binding SelectedPet, Mode=TwoWay}"
-                DisplayMemberPath="DisplayMember"
-                Background="#FFF4F4F5"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Pets}" Background="#FFF4F4F5">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding DisplayMember}"
+                                Command="{Binding OpenPetDetailViewCommand}"
+                                Background="#FFF4F4F5"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </UserControl>

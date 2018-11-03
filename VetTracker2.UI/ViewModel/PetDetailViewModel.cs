@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using VetTracker2.Model;
 using VetTracker2.UI.Data;
+using VetTracker2.UI.Data.Repositories;
 using VetTracker2.UI.Event;
 using VetTracker2.UI.Wrapper;
 
@@ -15,26 +16,30 @@ namespace VetTracker2.UI.ViewModel
 {
     public class PetDetailViewModel : ViewModelBase, IPetDetailViewModel
     {
-        private IPetDataService _dataService;
+        private IPetRepository _petRepository;
         private IEventAggregator _eventAggregator;
         private PetWrapper _pet;
+        private bool _hasChanges;
 
-        public PetDetailViewModel(IPetDataService dataService, IEventAggregator eventAggregator)
+        public PetDetailViewModel(IPetRepository petRepository, IEventAggregator eventAggregator)
         {
-            _dataService = dataService;
+            _petRepository = petRepository;
             _eventAggregator = eventAggregator;
-            _eventAggregator.GetEvent<OpenPetDetailViewEvent>().Subscribe(OnOpenPetDetailView);
 
             SaveCommand = new DelegateCommand(OnSaveExecute, OnSaveCanExecute);
         }
 
         public async Task LoadAsync(int petId)
         {
-            var pet = await _dataService.GetByIdAsync(petId);
+            var pet = await _petRepository.GetByIdAsync(petId);
 
             Pet = new PetWrapper(pet);
             Pet.PropertyChanged += (s, e) =>
             {
+                if (!HasChanges)
+                {
+                    HasChanges = _petRepository.HasChanges();
+                }
                 if (e.PropertyName == nameof(Pet.HasErrors))
                 {
                     ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
@@ -53,11 +58,26 @@ namespace VetTracker2.UI.ViewModel
             }
         }
 
+        public bool HasChanges
+        {
+            get { return _hasChanges; }
+            set
+            {
+                if (_hasChanges != value)
+                {
+                    _hasChanges = value;
+                    OnPropertyChanged();
+                    ((DelegateCommand)SaveCommand).RaiseCanExecuteChanged();
+                }
+            }
+        }
+
         public ICommand SaveCommand { get; }
 
         private async void OnSaveExecute()
         {
-            await _dataService.SaveAsync(Pet.Model);
+            await _petRepository.SaveAsync();
+            HasChanges = _petRepository.HasChanges();
             _eventAggregator.GetEvent<AfterPetSavedEvent>().Publish(
                 new AfterPetSavedEventArgs
                 {
@@ -68,12 +88,7 @@ namespace VetTracker2.UI.ViewModel
 
         private bool OnSaveCanExecute()
         {
-            return Pet != null && !Pet.HasErrors;
-        }
-
-        private async void OnOpenPetDetailView(int petId)
-        {
-            await LoadAsync(petId);
+            return Pet != null && !Pet.HasErrors && HasChanges;
         }
     }
 }

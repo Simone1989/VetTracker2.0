@@ -6,6 +6,7 @@ using VetTracker2.Model;
 using VetTracker2.UI.Data;
 using VetTracker2.UI.Event;
 using System.Linq;
+using VetTracker2.UI.Data.Lookups;
 
 namespace VetTracker2.UI.ViewModel
 {
@@ -34,26 +35,10 @@ namespace VetTracker2.UI.ViewModel
             Pets.Clear();
             foreach (var item in lookup)
             {
-                Pets.Add(new NavigationItemViewModel(item.Id, item.DisplayMember));
+                Pets.Add(new NavigationItemViewModel(item.Id, item.DisplayMember, _eventAggregator));
             }
         }
 
         public ObservableCollection<NavigationItemViewModel> Pets { get; }
-
-        private NavigationItemViewModel _selectedPet;
-
-        public NavigationItemViewModel SelectedPet
-        {
-            get { return _selectedPet; }
-            set
-            {
-                _selectedPet = value;
-                OnPropertyChanged();
-                if (_selectedPet != null)
-                {
-                    _eventAggregator.GetEvent<OpenPetDetailViewEvent>().Publish(_selectedPet.Id);
-                }
-            }
-        }
     }
 }

@@ -2,11 +2,12 @@
 using System.Threading.Tasks;
 using VetTracker2.Model;
 
-namespace VetTracker2.UI.Data
+namespace VetTracker2.UI.Data.Repositories
 {
-    public interface IPetDataService
+    public interface IPetRepository
     {
         Task<Pet> GetByIdAsync(int petId);
-        Task SaveAsync(Pet pet);
+        Task SaveAsync();
+        bool HasChanges();
     }
 }

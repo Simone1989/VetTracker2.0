@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using VetTracker2.DataAccess;
 using VetTracker2.Model;
 
-namespace VetTracker2.UI.Data
+namespace VetTracker2.UI.Data.Lookups
 {
     public class LookupDataService : IPetLookupDataService
     {

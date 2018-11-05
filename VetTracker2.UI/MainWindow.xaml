@@ -5,17 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VetTracker2.UI"
         xmlns:view="clr-namespace:VetTracker2.UI.View"
+        xmlns:viewModel="clr-namespace:VetTracker2.UI.ViewModel"
         mc:Ignorable="d"
-        Title="Vet Tracker 2.0"  Height="550" Width="1000" FontSize="24" Background="SlateGray">
-    <Grid Margin="20, 40, 20, 20">
-        
+        Title="Vet Tracker 2.0"  Height="550" Width="1000" FontSize="24" FontFamily="Calibri" Background="SlateGray">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:PetDetailViewModel}">
+            <view:PetDetailView/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="333"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <view:NavigationView Grid.Column="0" DataContext="{Binding NavigationViewModel}"/>
-        <view:PetDetailView Grid.Column="1" DataContext="{Binding PetDetailViewModel}"/>
+        <Menu Grid.Column="0" 
+              Grid.ColumnSpan="2"
+              FontSize="18"
+              Background="SlateGray"
+              HorizontalAlignment="Right"
+              Foreground="DarkSlateGray">
+            <MenuItem Header="Add new client" Background="#FFF4F4F5" Margin="0,0,20,0">
+                <MenuItem Header="New client" Command="{Binding CreateNewPetCommand}"/>
+            </MenuItem>
+        </Menu>
+
+        <Label Content="Your Clients"
+               Grid.Column="0"
+               Foreground="White"
+               FontWeight="Bold"
+               Margin="20, 0, 0, 0"/>
+        <view:NavigationView Grid.Column="0"
+                             Grid.Row="1"
+                             Margin="20, 0, 0, 20"
+                             DataContext="{Binding NavigationViewModel}"/>
+        <ContentControl Grid.Column="1" 
+                        Grid.Row="1" 
+                        Margin="0, 0, 20, 20"
+                        Content="{Binding PetDetailViewModel}"/>
 
     </Grid>
 </Window>

@@ -2,7 +2,7 @@
 
 namespace VetTracker2.UI.Event
 {
-    public class OpenPetDetailViewEvent : PubSubEvent<int?>
+    public class AfterPetDeletedEvent : PubSubEvent<int>
     {
     }
 }

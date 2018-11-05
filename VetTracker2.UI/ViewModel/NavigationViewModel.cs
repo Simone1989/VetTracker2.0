@@ -21,13 +21,10 @@ namespace VetTracker2.UI.ViewModel
             _eventAggregator = eventAggregator;
             Pets = new ObservableCollection<NavigationItemViewModel>();
             _eventAggregator.GetEvent<AfterPetSavedEvent>().Subscribe(AfterPetSaved);
+            _eventAggregator.GetEvent<AfterPetDeletedEvent>().Subscribe(AfterPetDeleted);
         }
 
-        private void AfterPetSaved(AfterPetSavedEventArgs obj)
-        {
-            var lookupItem = Pets.Single(l => l.Id == obj.Id);
-            lookupItem.DisplayMember = obj.DisplayMember;
-        }
+        public ObservableCollection<NavigationItemViewModel> Pets { get; }
 
         public async Task LoadAsync()
         {
@@ -39,6 +36,26 @@ namespace VetTracker2.UI.ViewModel
             }
         }
 
-        public ObservableCollection<NavigationItemViewModel> Pets { get; }
+        private void AfterPetDeleted(int petId)
+        {
+            var pet = Pets.SingleOrDefault(p => p.Id == petId);
+            if(pet != null)
+            {
+                Pets.Remove(pet);
+            }
+        }
+
+        private void AfterPetSaved(AfterPetSavedEventArgs obj)
+        {
+            var lookupItem = Pets.SingleOrDefault(l => l.Id == obj.Id);
+            if (lookupItem == null)
+            {
+                Pets.Add(new NavigationItemViewModel(obj.Id, obj.DisplayMember, _eventAggregator));
+            }
+            else
+            {
+                lookupItem.DisplayMember = obj.DisplayMember;
+            }
+        }
     }
 }

@@ -16,6 +16,17 @@ namespace VetTracker2.UI.Data.Repositories
         {
             _context = context;
         }
+
+        public void Add(Pet pet)
+        {
+            _context.Pets.Add(pet);
+        }
+
+        public void Delete(Pet model)
+        {
+            _context.Pets.Remove(model);
+        }
+
         public async Task<Pet> GetByIdAsync(int petId)
         {
             return await _context.Pets.SingleAsync(p => p.Id == petId);

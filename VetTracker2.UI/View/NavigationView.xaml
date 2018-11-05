@@ -13,7 +13,8 @@
                     <DataTemplate>
                         <Button Content="{Binding DisplayMember}"
                                 Command="{Binding OpenPetDetailViewCommand}"
-                                Background="#FFF4F4F5"/>
+                                Background="#FFF4F4F5"
+                                Foreground="DarkSlateGray"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

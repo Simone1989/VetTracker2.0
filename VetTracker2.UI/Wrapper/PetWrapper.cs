@@ -41,9 +41,9 @@ namespace VetTracker2.UI.Wrapper
             switch (propertyName)
             {
                 case nameof(Name):
-                    if (string.Equals(Name, "Robot", StringComparison.OrdinalIgnoreCase))
+                    if (string.Equals(Name, "Fecker", StringComparison.OrdinalIgnoreCase))
                     {
-                        yield return "Robots are bad";
+                        yield return "That's an aweful name for a pet.";
                     }
                     break;
             }

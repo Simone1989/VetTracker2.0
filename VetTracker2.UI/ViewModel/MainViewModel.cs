@@ -1,6 +1,8 @@
-﻿using Prism.Events;
+﻿using Prism.Commands;
+using Prism.Events;
 using System;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using VetTracker2.UI.Event;
 using VetTracker2.UI.View.Services;
 
@@ -21,6 +23,9 @@ namespace VetTracker2.UI.ViewModel
             _messageDialogService = messageDialogService;
 
             _eventAggregator.GetEvent<OpenPetDetailViewEvent>().Subscribe(OnOpenPetDetailView);
+            _eventAggregator.GetEvent<AfterPetDeletedEvent>().Subscribe(AfterPetDeleted);
+
+            CreateNewPetCommand = new DelegateCommand(OnCreatePetExecute);
 
             NavigationViewModel = navigationViewModel;
         }
@@ -32,6 +37,8 @@ namespace VetTracker2.UI.ViewModel
 
         public INavigationViewModel NavigationViewModel { get; }
 
+        public ICommand CreateNewPetCommand { get; }
+
         public IPetDetailViewModel PetDetailViewModel
         {
             get { return _petDetailViewModel; }
@@ -42,8 +49,7 @@ namespace VetTracker2.UI.ViewModel
             }
         }
 
-
-        private async void OnOpenPetDetailView(int petId)
+        private async void OnOpenPetDetailView(int? petId)
         {
             if(PetDetailViewModel!=null && PetDetailViewModel.HasChanges)
             {
@@ -55,6 +61,16 @@ namespace VetTracker2.UI.ViewModel
             }
             PetDetailViewModel =_petDetailViewModelCreator();
             await PetDetailViewModel.LoadAsync(petId);
+        }
+
+        private void OnCreatePetExecute()
+        {
+            OnOpenPetDetailView(null);
+        }
+
+        private void AfterPetDeleted(int petId)
+        {
+            PetDetailViewModel = null;
         }
     }
 }

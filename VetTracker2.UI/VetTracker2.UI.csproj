@@ -72,6 +72,7 @@
     <Compile Include="Data\Lookups\LookupDataService.cs" />
     <Compile Include="Data\Repositories\IPetRepository.cs" />
     <Compile Include="Data\Repositories\PetRepository.cs" />
+    <Compile Include="Event\AfterPetDeletedEvent.cs" />
     <Compile Include="Event\AfterPetSavedEvent.cs" />
     <Compile Include="Event\OpenPetDetailViewEvent.cs" />
     <Compile Include="Startup\Bootstrapper.cs" />

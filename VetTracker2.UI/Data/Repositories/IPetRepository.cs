@@ -9,5 +9,7 @@ namespace VetTracker2.UI.Data.Repositories
         Task<Pet> GetByIdAsync(int petId);
         Task SaveAsync();
         bool HasChanges();
+        void Add(Pet pet);
+        void Delete(Pet model);
     }
 }
